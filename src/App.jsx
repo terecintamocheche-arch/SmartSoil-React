@@ -1,4 +1,4 @@
-import thresholdData from "./data/soil_moisture_thresholds.json";
+import thresholdData from "./data/soil-moisture-thresholds.json";
 
 function App() {
   return (
