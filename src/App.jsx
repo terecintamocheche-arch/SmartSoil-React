@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
 import { useEffect, useState } from "react";
 import "./App.css";
 
@@ -36,6 +37,7 @@ function App() {
   return (
     <div>
       <Navbar />
+      <Hero />
       <h1>Welcome to SmartSoil</h1>
       <p>Connected to JSON Server successfully</p>
 
