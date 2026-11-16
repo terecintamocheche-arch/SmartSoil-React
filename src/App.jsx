@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   if (loading) {
-    return <h2>Loading soil data...</h2>;
+    return <h2>Loading soil data.........</h2>;
   }
 
   if (error) {
