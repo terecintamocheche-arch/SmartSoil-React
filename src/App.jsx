@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
   const [thresholds, setThresholds] = useState([]);
@@ -34,6 +35,7 @@ function App() {
 
   return (
     <div>
+      <Navbar />
       <h1>Welcome to SmartSoil</h1>
       <p>Connected to JSON Server successfully</p>
 

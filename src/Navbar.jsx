@@ -1,4 +1,4 @@
-function NavBar() {
+function Navbar() {
     return(
         <nav className="navbar">
             <a href="#home" className="logo">
