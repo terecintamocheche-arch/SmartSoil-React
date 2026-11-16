@@ -1,12 +1,17 @@
+
+import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import { useEffect, useState } from "react";
+import FieldConfiguration from "./components/FieldConfiguration";
 import "./App.css";
 
 function App() {
   const [thresholds, setThresholds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const [selectedCrop, setSelectedCrop] = useState("");
+  const [selectedSoil, setSelectedSoil] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3001/thresholds")
@@ -26,8 +31,14 @@ function App() {
       });
   }, []);
 
+  const crops = [...new Set(thresholds.map((record) => record.crop))];
+
+  const soilTypes = [
+    ...new Set(thresholds.map((record) => record.soilType)),
+  ];
+
   if (loading) {
-    return <h2>Loading soil data.........</h2>;
+    return <h2>Loading soil data...</h2>;
   }
 
   if (error) {
@@ -37,22 +48,21 @@ function App() {
   return (
     <div>
       <Navbar />
-      <Hero />
-      <h1>Welcome to SmartSoil</h1>
-      <p>Connected to JSON Server successfully</p>
 
-      <h2>Total threshold records: {thresholds.length}</h2>
+      <main>
+        <Hero />
 
-      <h3>Available soil moisture data</h3>
+        <FieldConfiguration
+          crops={crops}
+          soilTypes={soilTypes}
+          selectedCrop={selectedCrop}
+          selectedSoil={selectedSoil}
+          onCropChange={setSelectedCrop}
+          onSoilChange={setSelectedSoil}
+        />
 
-      {thresholds.slice(0, 5).map((record) => (
-        <div key={record.id}>
-          <p>Crop: {record.crop}</p>
-          <p>Soil type: {record.soilType}</p>
-          <p>Moisture threshold: {record.threshold}</p>
-          <hr />
-        </div>
-      ))}
+        <p>Total threshold records: {thresholds.length}</p>
+      </main>
     </div>
   );
 }
