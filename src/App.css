@@ -246,3 +246,79 @@ a {
     font-size: 28px;
   }
 }
+
+
+/* DASHBOARD */
+
+.dashboard {
+  padding: 70px 7%;
+  background: #f0f4ed;
+}
+
+.dashboard-message {
+  text-align: center;
+  color: #718073;
+  padding: 30px;
+}
+
+.dashboard-summary {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  margin-bottom: 30px;
+  color: #536056;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.metric-card {
+  background: white;
+  padding: 25px;
+  border: 1px solid #e4eae1;
+  border-radius: 14px;
+  box-shadow: 0 5px 18px rgba(44, 70, 48, 0.04);
+}
+
+.metric-card p {
+  color: #718073;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.metric-card h3 {
+  color: #426b49;
+  font-size: 28px;
+}
+
+.assessment-card {
+  background: white;
+  margin-top: 25px;
+  padding: 30px;
+  border-radius: 14px;
+  border: 1px solid #e4eae1;
+}
+
+.assessment-card h3 {
+  color: #426b49;
+  margin-bottom: 12px;
+}
+
+.assessment-card p:last-child {
+  color: #718073;
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-summary {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
