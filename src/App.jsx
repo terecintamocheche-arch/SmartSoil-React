@@ -6,6 +6,7 @@ import Hero from "./components/Hero";
 import FieldConfiguration from "./components/FieldConfiguration";
 import Dashboard from "./components/Dashboard";
 import ReadingHistory from "./components/ReadingHistory";
+import Footer from "./components/Footer";
 
 import "./App.css";
 
@@ -81,7 +82,9 @@ function App() {
         />
 
         <ReadingHistory />
+        <Footer />
         
+
       </main>
     </div>
   );
