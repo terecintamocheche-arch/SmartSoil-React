@@ -13,14 +13,17 @@ function AnalysisForm({
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
 
+  const hasMoisture =
+    typeof moisture === "number" && Number.isFinite(moisture);
+
   const isBelowThreshold =
     thresholdData &&
-    moisture !== null &&
-    moisture <= thresholdData.threshold;
+    hasMoisture &&
+    moisture <= Number(thresholdData.threshold);
 
   async function saveReading() {
-    if (moisture === null || !thresholdData) {
-      setSaveMessage("No reading available to save.");
+    if (!thresholdData || !hasMoisture) {
+      setSaveMessage("No soil moisture reading available to save.");
       return;
     }
 
@@ -83,8 +86,10 @@ function AnalysisForm({
         <p>Retrieving soil moisture readings...</p>
       ) : error ? (
         <p className="error-message">{error}</p>
-      ) : moisture === null ? (
+      ) : !hasMoisture ? (
         <p>No soil moisture reading is available.</p>
+      ) : !thresholdData ? (
+        <p>No matching threshold data was found.</p>
       ) : (
         <div className="analysis-card">
           <p>
