@@ -297,3 +297,40 @@ a {
 .history-card small {
   color: #89958a;
 }
+
+.footer {
+  background: #344b38;
+  color: white;
+  padding: 45px 7% 20px;
+}
+
+.footer-content {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.footer-content h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.footer-content p {
+  color: #d4dfd1;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 13px;
+  color: #d4dfd1;
+}
+
+@media (max-width: 600px) {
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
