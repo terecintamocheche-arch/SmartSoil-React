@@ -532,6 +532,15 @@
       "status": "Below moisture threshold",
       "date": "2026-11-17T16:53:09.082Z",
       "id": 3
+    },
+    {
+      "crop": "beans",
+      "soilType": "loamy sand",
+      "soilMoisture": 7.2,
+      "threshold": 10.4,
+      "status": "Below moisture threshold",
+      "date": "2026-11-17T17:54:06.221Z",
+      "id": 4
     }
   ]
 }
