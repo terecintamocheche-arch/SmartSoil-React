@@ -248,77 +248,52 @@ a {
 }
 
 
-/* DASHBOARD */
-
-.dashboard {
-  padding: 70px 7%;
-  background: #f0f4ed;
+.save-button {
+  margin-top: 20px;
+  padding: 13px 24px;
+  background: #657f60;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.dashboard-message {
-  text-align: center;
-  color: #718073;
-  padding: 30px;
+.save-button:hover {
+  background: #426b49;
 }
 
-.dashboard-summary {
-  display: flex;
-  justify-content: center;
-  gap: 35px;
-  margin-bottom: 30px;
-  color: #536056;
+.save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+.history-section {
+  margin-top: 60px;
 }
 
-.metric-card {
+.history-section h2 {
+  margin-bottom: 25px;
+  color: #426b49;
+}
+
+.history-card {
   background: white;
-  padding: 25px;
-  border: 1px solid #e4eae1;
-  border-radius: 14px;
-  box-shadow: 0 5px 18px rgba(44, 70, 48, 0.04);
-}
-
-.metric-card p {
-  color: #718073;
-  font-size: 13px;
+  padding: 20px;
   margin-bottom: 15px;
-}
-
-.metric-card h3 {
-  color: #426b49;
-  font-size: 28px;
-}
-
-.assessment-card {
-  background: white;
-  margin-top: 25px;
-  padding: 30px;
-  border-radius: 14px;
   border: 1px solid #e4eae1;
+  border-radius: 12px;
 }
 
-.assessment-card h3 {
+.history-card h3 {
   color: #426b49;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
-.assessment-card p:last-child {
+.history-card p {
+  margin: 7px 0;
   color: #718073;
-  line-height: 1.7;
 }
 
-@media (max-width: 768px) {
-  .dashboard-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .dashboard-summary {
-    flex-direction: column;
-    gap: 10px;
-  }
+.history-card small {
+  color: #89958a;
 }
