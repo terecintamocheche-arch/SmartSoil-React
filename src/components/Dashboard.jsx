@@ -3,10 +3,8 @@ import { useEffect, useState } from "react";
 
 function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
   const [moisture, setMoisture] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  const [history, setHistory] = useState([]);
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
 
@@ -15,10 +13,6 @@ function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
   // Fetch soil moisture from Open-Meteo
   useEffect(() => {
     async function fetchMoisture() {
-      setLoading(true);
-      setError("");
-      setMoisture(null);
-
       try {
         const url =
           "https://api.open-meteo.com/v1/forecast?latitude=-2.75&longitude=39.50&hourly=soil_moisture_27_to_81cm&past_days=1&forecast_days=1&timezone=Africa%2FNairobi";
@@ -37,14 +31,17 @@ function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
         let latestReading = null;
 
         for (let i = times.length - 1; i >= 0; i--) {
-          if (new Date(times[i]) <= new Date() && readings[i] !== null) {
+          if (
+            new Date(times[i]) <= new Date() &&
+            readings[i] !== null
+          ) {
             latestReading = readings[i];
             break;
           }
         }
 
         if (latestReading === null) {
-          throw new Error("No soil moisture reading is currently available.");
+          throw new Error("No soil moisture reading is available.");
         }
 
         setMoisture(latestReading * 100);
@@ -58,42 +55,22 @@ function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
     fetchMoisture();
   }, []);
 
-  // Get saved assessments from JSON Server
-  useEffect(() => {
-    async function fetchHistory() {
-      try {
-        const response = await fetch("http://localhost:3001/analyses");
-
-        if (!response.ok) {
-          throw new Error("Unable to load assessment history.");
-        }
-
-        const data = await response.json();
-        setHistory(data);
-      } catch (err) {
-        console.error(err.message);
-      }
-    }
-
-    fetchHistory();
-  }, []);
-
   const isBelowThreshold =
     thresholdData &&
     moisture !== null &&
     moisture <= thresholdData.threshold;
 
-  // Save assessment to JSON Server
-  async function saveAssessment() {
-    if (!hasSelection || !thresholdData || moisture === null) {
-      setSaveMessage("Please wait for a soil moisture reading.");
+  // Save reading to JSON Server
+  async function saveReading() {
+    if (!thresholdData || moisture === null) {
+      setSaveMessage("No soil moisture reading available.");
       return;
     }
 
     setSaving(true);
     setSaveMessage("");
 
-    const assessment = {
+    const reading = {
       crop: selectedCrop,
       soilType: selectedSoil,
       soilMoisture: Number(moisture.toFixed(2)),
@@ -105,26 +82,23 @@ function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
     };
 
     try {
-      const response = await fetch("http://localhost:3001/analyses", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(assessment)
-      });
+      const response = await fetch(
+        "http://localhost:3001/analyses",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(reading)
+        }
+      );
 
       if (!response.ok) {
-        throw new Error("Unable to save assessment.");
+        throw new Error("Unable to save reading.");
       }
 
-      const savedAssessment = await response.json();
-
-      setHistory((previousHistory) => [
-        savedAssessment,
-        ...previousHistory
-      ]);
-
-      setSaveMessage("Assessment saved successfully!");
+      await response.json();
+      setSaveMessage("Reading saved successfully!");
     } catch (err) {
       setSaveMessage(err.message);
     } finally {
@@ -134,12 +108,13 @@ function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
 
   return (
     <section className="dashboard" id="dashboard">
+
       <div className="section-heading">
         <p className="section-tag">FIELD MONITORING</p>
         <h2>Soil moisture dashboard</h2>
         <p>
-          Monitor soil moisture and receive crop-specific irrigation
-          recommendations.
+          Monitor soil moisture and receive crop-specific
+          irrigation recommendations.
         </p>
       </div>
 
@@ -163,6 +138,7 @@ function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
           </div>
 
           <div className="dashboard-grid">
+
             <div className="metric-card">
               <p>Field capacity</p>
               <h3>{thresholdData.fieldCapacity}%</h3>
@@ -188,6 +164,7 @@ function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
                   : "--"}
               </h3>
             </div>
+
           </div>
 
           <div className="assessment-card">
@@ -212,11 +189,11 @@ function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
                 </p>
 
                 <button
-                  onClick={saveAssessment}
+                  onClick={saveReading}
                   disabled={saving}
                   className="save-button"
                 >
-                  {saving ? "Saving..." : "Save Assessment"}
+                  {saving ? "Saving..." : "Save Reading"}
                 </button>
 
                 {saveMessage && <p>{saveMessage}</p>}
@@ -228,26 +205,6 @@ function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
         </>
       )}
 
-      <div className="history-section">
-        <h2>Assessment History</h2>
-
-        {history.length === 0 ? (
-          <p>No saved assessments yet.</p>
-        ) : (
-          history.map((item) => (
-            <div className="history-card" key={item.id}>
-              <h3>{item.crop}</h3>
-              <p>Soil type: {item.soilType}</p>
-              <p>Soil moisture: {item.soilMoisture}%</p>
-              <p>Threshold: {item.threshold}%</p>
-              <p>Status: {item.status}</p>
-              <small>
-                {new Date(item.date).toLocaleString()}
-              </small>
-            </div>
-          ))
-        )}
-      </div>
     </section>
   );
 }
