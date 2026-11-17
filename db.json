@@ -505,5 +505,15 @@
       "threshold": 33.2
     }
   ],
-  "analyses": []
+  "analyses": [
+    {
+      "crop": "beans",
+      "soilType": "loam",
+      "soilMoisture": 7.2,
+      "threshold": 20.2,
+      "status": "Below moisture threshold",
+      "date": "2026-11-17T16:43:31.495Z",
+      "id": 1
+    }
+  ]
 }
