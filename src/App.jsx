@@ -14,6 +14,7 @@ function App() {
 
   const [selectedCrop, setSelectedCrop] = useState("");
   const [selectedSoil, setSelectedSoil] = useState("");
+  const [moisture, setMoisture] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:3001/thresholds")
