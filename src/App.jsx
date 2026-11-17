@@ -39,6 +39,12 @@ function App() {
   const soilTypes = [
     ...new Set(thresholds.map((record) => record.soilType)),
   ];
+  const thresholdData = thresholds.find(
+  (record) =>
+    record.crop === selectedCrop &&
+    record.soilType === selectedSoil
+);
+
 
   if (loading) {
     return <h2>Loading soil data...</h2>;
