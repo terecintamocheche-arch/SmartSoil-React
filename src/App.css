@@ -334,3 +334,59 @@ a {
     text-align: center;
   }
 }
+
+
+/* FIELD ANALYSIS */
+.analysis-section {
+  padding: 70px 7%;
+  background: #f7f8f3;
+}
+
+.analysis-card {
+  max-width: 850px;
+  margin: 30px auto 0;
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid #e4eae1;
+  border-radius: 14px;
+  box-shadow: 0 5px 18px rgba(44, 70, 48, 0.05);
+  line-height: 1.8;
+}
+
+.analysis-card h3 {
+  margin-top: 20px;
+  margin-bottom: 12px;
+  color: #426b49;
+}
+
+.analysis-card p {
+  color: #718073;
+}
+
+.analysis-card strong {
+  color: #344b38;
+}
+
+.save-button {
+  margin-top: 20px;
+  padding: 13px 24px;
+  background: #657f60;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.save-button:hover {
+  background: #426b49;
+}
+
+.save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #b33a3a;
+}
