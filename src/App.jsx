@@ -20,6 +20,9 @@ function App() {
   const [selectedCrop, setSelectedCrop] = useState("");
   const [selectedSoil, setSelectedSoil] = useState("");
 
+  // Refresh signal for Reading History
+  const [refreshHistory, setRefreshHistory] = useState(0);
+
   useEffect(() => {
     fetch("http://localhost:3001/thresholds")
       .then((response) => {
@@ -82,9 +85,14 @@ function App() {
                     selectedCrop={selectedCrop}
                     selectedSoil={selectedSoil}
                     thresholdData={thresholdData}
+                    onReadingSaved={() =>
+                      setRefreshHistory((prev) => prev + 1)
+                    }
                   />
 
-                  <ReadingHistory />
+                  <ReadingHistory
+                    refreshKey={refreshHistory}
+                  />
                 </>
               )
             }
