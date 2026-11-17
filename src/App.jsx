@@ -15,7 +15,6 @@ function App() {
   const [selectedCrop, setSelectedCrop] = useState("");
   const [selectedSoil, setSelectedSoil] = useState("");
 
-  // Fetch threshold records from JSON Server
   useEffect(() => {
     fetch("http://localhost:3001/thresholds")
       .then((response) => {
@@ -35,17 +34,17 @@ function App() {
       });
   }, []);
 
-  // Get available crops
+  
   const crops = [
     ...new Set(thresholds.map((record) => record.crop)),
   ];
 
-  // Get available soil types
+  
   const soilTypes = [
     ...new Set(thresholds.map((record) => record.soilType)),
   ];
 
-  // Find matching threshold
+
   const thresholdData = thresholds.find(
     (record) =>
       record.crop === selectedCrop &&
