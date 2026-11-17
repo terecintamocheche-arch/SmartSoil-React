@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -25,7 +26,6 @@ function App() {
         if (!response.ok) {
           throw new Error("Failed to fetch soil data");
         }
-
         return response.json();
       })
       .then((data) => {
@@ -52,43 +52,49 @@ function App() {
       record.soilType === selectedSoil
   );
 
-  if (loading) {
-    return <h2>Loading soil data...</h2>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
   return (
     <div>
       <Navbar />
 
       <main>
-        <Hero />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              loading ? (
+                <h2>Loading soil data...</h2>
+              ) : error ? (
+                <p>Error: {error}</p>
+              ) : (
+                <>
+                  <Hero />
 
-        <FieldConfiguration
-          crops={crops}
-          soilTypes={soilTypes}
-          selectedCrop={selectedCrop}
-          selectedSoil={selectedSoil}
-          onCropChange={setSelectedCrop}
-          onSoilChange={setSelectedSoil}
-        />
+                  <FieldConfiguration
+                    crops={crops}
+                    soilTypes={soilTypes}
+                    selectedCrop={selectedCrop}
+                    selectedSoil={selectedSoil}
+                    onCropChange={setSelectedCrop}
+                    onSoilChange={setSelectedSoil}
+                  />
 
-        <Dashboard
-          selectedCrop={selectedCrop}
-          selectedSoil={selectedSoil}
-          thresholdData={thresholdData}
-        />
+                  <Dashboard
+                    selectedCrop={selectedCrop}
+                    selectedSoil={selectedSoil}
+                    thresholdData={thresholdData}
+                  />
 
-        <ReadingHistory />
-        <Footer />
-        <About />
-        
+                  <ReadingHistory />
+                </>
+              )
+            }
+          />
+
+          <Route path="/about" element={<About />} />
+        </Routes>
       </main>
 
-      
+      <Footer />
     </div>
   );
 }
