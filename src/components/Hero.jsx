@@ -18,9 +18,6 @@ function Hero() {
         </a>
       </div>
 
-      <div className="hero-image">
-        <img src="/src/assets/hero.png" alt="Agricultural field" />
-      </div>
     </section>
   );
 }
