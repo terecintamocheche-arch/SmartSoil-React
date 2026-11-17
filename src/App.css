@@ -478,3 +478,79 @@ button {
     text-align: center;
   }
 }
+
+/* ABOUT SECTION */
+
+.about-section {
+  padding: 85px 7%;
+  background: #ffffff;
+}
+
+.about-section .section-heading {
+  max-width: 800px;
+  margin: 0 auto 45px;
+  text-align: center;
+}
+
+.about-section .section-heading h2 {
+  color: var(--dark);
+  font-size: 2.3rem;
+  margin-bottom: 18px;
+}
+
+.about-section .section-heading p:last-child {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.about-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.about-content h3 {
+  color: var(--green);
+  font-size: 1.35rem;
+  margin: 25px 0 12px;
+}
+
+.about-content h3:first-child {
+  margin-top: 0;
+}
+
+.about-content p {
+  color: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.9;
+  margin-bottom: 18px;
+  text-align: justify;
+}
+
+/* ABOUT SECTION RESPONSIVENESS */
+
+@media (max-width: 600px) {
+  .about-section {
+    padding: 60px 5%;
+  }
+
+  .about-section .section-heading h2 {
+    font-size: 1.8rem;
+  }
+
+  .about-content {
+    padding: 25px 20px;
+  }
+
+  .about-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .about-content p {
+    font-size: 0.93rem;
+    text-align: left;
+  }
+}
