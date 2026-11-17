@@ -7,6 +7,8 @@ import FieldConfiguration from "./components/FieldConfiguration";
 import Dashboard from "./components/Dashboard";
 import ReadingHistory from "./components/ReadingHistory";
 import Footer from "./components/Footer";
+import AnalysisForm from "./components/AnalysisForm";
+
 
 import "./App.css";
 
@@ -83,7 +85,9 @@ function App() {
 
         <ReadingHistory />
         <Footer />
+        <AnalysisForm />
         
+
 
       </main>
     </div>

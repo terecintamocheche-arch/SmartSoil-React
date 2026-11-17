@@ -1,16 +1,18 @@
 
 import { useEffect, useState } from "react";
+import AnalysisForm from "./AnalysisForm";
 
-function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
+function Dashboard({
+  selectedCrop,
+  selectedSoil,
+  thresholdData,
+  onReadingSaved
+}) {
   const [moisture, setMoisture] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [saving, setSaving] = useState(false);
-  const [saveMessage, setSaveMessage] = useState("");
 
-  const hasSelection = selectedCrop && selectedSoil;
 
-  // Fetch soil moisture from Open-Meteo
   useEffect(() => {
     async function fetchMoisture() {
       try {
@@ -55,72 +57,21 @@ function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
     fetchMoisture();
   }, []);
 
-  const isBelowThreshold =
-    thresholdData &&
-    moisture !== null &&
-    moisture <= thresholdData.threshold;
-
-  // Save reading to JSON Server
-  async function saveReading() {
-    if (!thresholdData || moisture === null) {
-      setSaveMessage("No soil moisture reading available.");
-      return;
-    }
-
-    setSaving(true);
-    setSaveMessage("");
-
-    const reading = {
-      crop: selectedCrop,
-      soilType: selectedSoil,
-      soilMoisture: Number(moisture.toFixed(2)),
-      threshold: thresholdData.threshold,
-      status: isBelowThreshold
-        ? "Below moisture threshold"
-        : "Above moisture threshold",
-      date: new Date().toISOString()
-    };
-
-    try {
-      const response = await fetch(
-        "http://localhost:3001/analyses",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(reading)
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Unable to save reading.");
-      }
-
-      await response.json();
-      setSaveMessage("Reading saved successfully!");
-    } catch (err) {
-      setSaveMessage(err.message);
-    } finally {
-      setSaving(false);
-    }
-  }
+  const hasSelection = selectedCrop && selectedSoil;
 
   return (
     <section className="dashboard" id="dashboard">
-
       <div className="section-heading">
         <p className="section-tag">FIELD MONITORING</p>
         <h2>Soil moisture dashboard</h2>
         <p>
-          Monitor soil moisture and receive crop-specific
-          irrigation recommendations.
+          Monitor soil moisture and view your field measurements.
         </p>
       </div>
 
       {!hasSelection ? (
         <p className="dashboard-message">
-          Select a crop and soil type to view your field assessment.
+          Select a crop and soil type to view your field data.
         </p>
       ) : !thresholdData ? (
         <p className="dashboard-message">
@@ -138,7 +89,6 @@ function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
           </div>
 
           <div className="dashboard-grid">
-
             <div className="metric-card">
               <p>Field capacity</p>
               <h3>{thresholdData.fieldCapacity}%</h3>
@@ -164,47 +114,19 @@ function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
                   : "--"}
               </h3>
             </div>
-
           </div>
 
-          <div className="assessment-card">
-            <h3>Irrigation assessment</h3>
-
-            {loading ? (
-              <p>Retrieving soil moisture readings...</p>
-            ) : error ? (
-              <p className="error-message">{error}</p>
-            ) : moisture !== null ? (
-              <>
-                <h3>
-                  {isBelowThreshold
-                    ? "Below moisture threshold"
-                    : "Above moisture threshold"}
-                </h3>
-
-                <p>
-                  {isBelowThreshold
-                    ? "Soil moisture is at or below the selected crop threshold. Check field conditions and your irrigation plan."
-                    : "Soil moisture is above the selected crop threshold. Continue monitoring field conditions before irrigating."}
-                </p>
-
-                <button
-                  onClick={saveReading}
-                  disabled={saving}
-                  className="save-button"
-                >
-                  {saving ? "Saving..." : "Save Reading"}
-                </button>
-
-                {saveMessage && <p>{saveMessage}</p>}
-              </>
-            ) : (
-              <p>No soil moisture reading is available.</p>
-            )}
-          </div>
+          <Analysis
+            selectedCrop={selectedCrop}
+            selectedSoil={selectedSoil}
+            thresholdData={thresholdData}
+            moisture={moisture}
+            loading={loading}
+            error={error}
+            onReadingSaved={onReadingSaved}
+          />
         </>
       )}
-
     </section>
   );
 }
