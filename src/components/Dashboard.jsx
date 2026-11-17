@@ -2,57 +2,61 @@
 import { useEffect, useState } from "react";
 import AnalysisForm from "./AnalysisForm";
 
-function Dashboard({
-  selectedCrop,
-  selectedSoil,
-  thresholdData,
-  onReadingSaved
-}) {
+function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
   const [moisture, setMoisture] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    async function fetchMoisture() {
-      try {
-        const url =
-          "https://api.open-meteo.com/v1/forecast?latitude=-2.75&longitude=39.50&hourly=soil_moisture_27_to_81cm&past_days=1&forecast_days=1&timezone=Africa%2FNairobi";
+  async function fetchMoisture() {
+    setLoading(true);
+    setError("");
 
-        const response = await fetch(url);
+    try {
+      const url =
+        "https://api.open-meteo.com/v1/forecast?latitude=-2.75&longitude=39.50&hourly=soil_moisture_27_to_81cm&past_days=1&forecast_days=1&timezone=Africa%2FNairobi";
 
-        if (!response.ok) {
-          throw new Error("Unable to retrieve soil moisture data.");
-        }
+      const response = await fetch(url);
 
-        const data = await response.json();
-
-        const times = data.hourly.time;
-        const readings = data.hourly.soil_moisture_27_to_81cm;
-
-        let latestReading = null;
-
-        for (let i = times.length - 1; i >= 0; i--) {
-          if (
-            new Date(times[i]) <= new Date() &&
-            readings[i] !== null
-          ) {
-            latestReading = readings[i];
-            break;
-          }
-        }
-
-        if (latestReading === null) {
-          throw new Error("No soil moisture reading is available.");
-        }
-
-        setMoisture(latestReading * 100);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error("Unable to retrieve soil moisture data.");
       }
-    }
 
+      const data = await response.json();
+
+      const times = data.hourly?.time;
+      const readings = data.hourly?.soil_moisture_27_to_81cm;
+
+      if (!times || !readings) {
+        throw new Error("Soil moisture data is unavailable.");
+      }
+
+      let latestReading = null;
+
+      for (let i = times.length - 1; i >= 0; i--) {
+        if (
+          new Date(times[i]) <= new Date() &&
+          readings[i] !== null &&
+          typeof readings[i] === "number"
+        ) {
+          latestReading = readings[i];
+          break;
+        }
+      }
+
+      if (latestReading === null) {
+        throw new Error("No soil moisture reading is available.");
+      }
+
+      setMoisture(latestReading * 100);
+    } catch (err) {
+      setError(err.message);
+      setMoisture(null);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
     fetchMoisture();
   }, []);
 
@@ -111,12 +115,21 @@ function Dashboard({
                 <h3>
                   {loading
                     ? "Loading..."
-                    : typeof moisture === "number"
+                    : moisture !== null
                     ? `${moisture.toFixed(2)}%`
                     : "--"}
                 </h3>
               </div>
             </div>
+
+            {error && (
+              <div className="dashboard-message">
+                <p className="error-message">{error}</p>
+                <button onClick={fetchMoisture} disabled={loading}>
+                  {loading ? "Retrying..." : "Retry Reading"}
+                </button>
+              </div>
+            )}
           </>
         )}
       </section>
@@ -129,7 +142,6 @@ function Dashboard({
           moisture={moisture}
           loading={loading}
           error={error}
-          onReadingSaved={onReadingSaved}
         />
       )}
     </>
