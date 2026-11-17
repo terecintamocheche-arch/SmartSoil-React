@@ -1,29 +1,37 @@
 
 import { useEffect, useState } from "react";
 
-function ReadingHistory() {
+function ReadingHistory({ refreshKey }) {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3001/analyses")
-      .then((response) => {
+    async function fetchHistory() {
+      setLoading(true);
+      setError("");
+
+      try {
+        const response = await fetch(
+          "http://localhost:3001/analyses"
+        );
+
         if (!response.ok) {
           throw new Error("Failed to load reading history.");
         }
 
-        return response.json();
-      })
-      .then((data) => {
-        setHistory(data);
-        setLoading(false);
-      })
-      .catch((err) => {
+        const data = await response.json();
+
+        setHistory(data.reverse());
+      } catch (err) {
         setError(err.message);
+      } finally {
         setLoading(false);
-      });
-  }, []);
+      }
+    }
+
+    fetchHistory();
+  }, [refreshKey]);
 
   if (loading) {
     return <p>Loading reading history...</p>;
