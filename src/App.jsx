@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import FieldConfiguration from "./components/FieldConfiguration";
 import Dashboard from "./components/Dashboard";
+import ReadingHistory from "./components/ReadingHistory";
 
 import "./App.css";
 
@@ -78,6 +79,9 @@ function App() {
           selectedSoil={selectedSoil}
           thresholdData={thresholdData}
         />
+
+        <ReadingHistory />
+        
       </main>
     </div>
   );
