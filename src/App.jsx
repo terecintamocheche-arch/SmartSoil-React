@@ -15,6 +15,8 @@ function App() {
   const [selectedCrop, setSelectedCrop] = useState("");
   const [selectedSoil, setSelectedSoil] = useState("");
   const [moisture, setMoisture] = useState(null);
+  const [moistureLoading, setMoistureLoading] = useState(true);
+  const [moistureError, setMoistureError] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3001/thresholds")
@@ -39,7 +41,7 @@ function App() {
   const soilTypes = [
     ...new Set(thresholds.map((record) => record.soilType)),
   ];
-  
+
   const thresholdData = thresholds.find(
   (record) =>
     record.crop === selectedCrop &&
