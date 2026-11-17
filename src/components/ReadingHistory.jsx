@@ -34,7 +34,7 @@ function ReadingHistory() {
   }
 
   return (
-    <section className="history-section" id="#history">
+    <section className="history-section" id="history">
       <div className="section-heading">
         <p className="section-tag">PREVIOUS RECORDS</p>
         <h2>Reading History</h2>
