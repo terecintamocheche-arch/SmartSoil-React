@@ -9,21 +9,20 @@ import "./App.css";
 
 function App() {
   const [thresholds, setThresholds] = useState([]);
-  const [moisture, setMoisture] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const [selectedCrop, setSelectedCrop] = useState("");
   const [selectedSoil, setSelectedSoil] = useState("");
 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  
+  // Fetch threshold records from JSON Server
   useEffect(() => {
     fetch("http://localhost:3001/thresholds")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch soil data");
         }
+
         return response.json();
       })
       .then((data) => {
@@ -36,36 +35,17 @@ function App() {
       });
   }, []);
 
-  
-  useEffect(() => {
-    fetch("http://localhost:3001/moistureReadings")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch moisture readings");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (data.length > 0) {
-          setMoisture(data[data.length - 1].moisture);
-        }
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
-  }, []);
-
-  
+  // Get available crops
   const crops = [
     ...new Set(thresholds.map((record) => record.crop)),
   ];
 
-  
+  // Get available soil types
   const soilTypes = [
     ...new Set(thresholds.map((record) => record.soilType)),
   ];
 
-  
+  // Find matching threshold
   const thresholdData = thresholds.find(
     (record) =>
       record.crop === selectedCrop &&
@@ -100,7 +80,6 @@ function App() {
           selectedCrop={selectedCrop}
           selectedSoil={selectedSoil}
           thresholdData={thresholdData}
-          moisture={moisture}
         />
 
         <p>Total threshold records: {thresholds.length}</p>
