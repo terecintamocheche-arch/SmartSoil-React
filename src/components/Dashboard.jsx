@@ -1,15 +1,21 @@
 
-function Dashboard({ selectedCrop, selectedSoil, thresholdData, moisture }) {
+import { useState } from "react";
+
+function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
+  const [moisture, setMoisture] = useState("");
+
   const hasSelection = selectedCrop && selectedSoil;
+
   const isBelowThreshold =
-    thresholdData && moisture !== null && moisture <= thresholdData.threshold;
+    thresholdData && moisture !== "" &&
+    Number(moisture) <= thresholdData.threshold;
 
   return (
     <section className="dashboard" id="dashboard">
       <div className="section-heading">
         <p className="section-tag">FIELD MONITORING</p>
         <h2>Soil moisture dashboard</h2>
-        <p>Monitor your field conditions and irrigation requirements.</p>
+        <p>Enter your current soil moisture reading to assess your field.</p>
       </div>
 
       {!hasSelection ? (
@@ -45,30 +51,45 @@ function Dashboard({ selectedCrop, selectedSoil, thresholdData, moisture }) {
 
             <div className="metric-card">
               <p>Current soil moisture</p>
-              <h3>
-                {moisture === null ? "Not available" : `${moisture}%`}
-              </h3>
+              <h3>{moisture === "" ? "--" : `${moisture}%`}</h3>
             </div>
           </div>
 
           <div className="assessment-card">
-            <p className="section-tag">IRRIGATION ASSESSMENT</p>
+            <label htmlFor="moisture">
+              Enter current soil moisture (%)
+            </label>
 
-            {moisture === null ? (
-              <h3>Waiting for moisture reading</h3>
-            ) : (
+            <input
+              type="number"
+              id="moisture"
+              min="0"
+              max="100"
+              step="0.1"
+              value={moisture}
+              onChange={(event) => setMoisture(event.target.value)}
+              placeholder="e.g. 15"
+            />
+
+            {moisture !== "" && (
               <>
-                <h3>
-                  {isBelowThreshold
-                    ? "Below moisture threshold"
-                    : "Above moisture threshold"}
-                </h3>
+                {Number(moisture) < 0 || Number(moisture) > 100 ? (
+                  <p>Please enter a value between 0 and 100.</p>
+                ) : (
+                  <>
+                    <h3>
+                      {isBelowThreshold
+                        ? "Below moisture threshold"
+                        : "Above moisture threshold"}
+                    </h3>
 
-                <p>
-                  {isBelowThreshold
-                    ? "Soil moisture is at or below the selected crop threshold. Check field conditions and your irrigation plan."
-                    : "Soil moisture is above the selected crop threshold. Continue monitoring field conditions before irrigating."}
-                </p>
+                    <p>
+                      {isBelowThreshold
+                        ? "Soil moisture is at or below the selected crop threshold. Check field conditions and your irrigation plan."
+                        : "Soil moisture is above the selected crop threshold. Continue monitoring field conditions before irrigating."}
+                    </p>
+                  </>
+                )}
               </>
             )}
           </div>
