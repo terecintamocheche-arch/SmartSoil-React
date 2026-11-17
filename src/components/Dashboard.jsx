@@ -12,7 +12,6 @@ function Dashboard({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-
   useEffect(() => {
     async function fetchMoisture() {
       try {
@@ -60,74 +59,80 @@ function Dashboard({
   const hasSelection = selectedCrop && selectedSoil;
 
   return (
-    <section className="dashboard" id="dashboard">
-      <div className="section-heading">
-        <p className="section-tag">FIELD MONITORING</p>
-        <h2>Soil moisture dashboard</h2>
-        <p>
-          Monitor soil moisture and view your field measurements.
-        </p>
-      </div>
+    <>
+      <section className="dashboard" id="dashboard">
+        <div className="section-heading">
+          <p className="section-tag">FIELD MONITORING</p>
+          <h2>Soil Moisture Dashboard</h2>
+          <p>
+            Monitor your field measurements and crop-specific
+            moisture thresholds.
+          </p>
+        </div>
 
-      {!hasSelection ? (
-        <p className="dashboard-message">
-          Select a crop and soil type to view your field data.
-        </p>
-      ) : !thresholdData ? (
-        <p className="dashboard-message">
-          No matching threshold data was found.
-        </p>
-      ) : (
-        <>
-          <div className="dashboard-summary">
-            <p>
-              Selected crop: <strong>{selectedCrop}</strong>
-            </p>
-            <p>
-              Soil type: <strong>{selectedSoil}</strong>
-            </p>
-          </div>
+        {!hasSelection ? (
+          <p className="dashboard-message">
+            Select a crop and soil type to view your field data.
+          </p>
+        ) : !thresholdData ? (
+          <p className="dashboard-message">
+            No matching threshold data was found.
+          </p>
+        ) : (
+          <>
+            <div className="dashboard-summary">
+              <p>
+                Selected crop: <strong>{selectedCrop}</strong>
+              </p>
 
-          <div className="dashboard-grid">
-            <div className="metric-card">
-              <p>Field capacity</p>
-              <h3>{thresholdData.fieldCapacity}%</h3>
+              <p>
+                Soil type: <strong>{selectedSoil}</strong>
+              </p>
             </div>
 
-            <div className="metric-card">
-              <p>Wilting point</p>
-              <h3>{thresholdData.wiltingPoint}%</h3>
-            </div>
+            <div className="dashboard-grid">
+              <div className="metric-card">
+                <p>Field Capacity</p>
+                <h3>{thresholdData.fieldCapacity}%</h3>
+              </div>
 
-            <div className="metric-card">
-              <p>Moisture threshold</p>
-              <h3>{thresholdData.threshold}%</h3>
-            </div>
+              <div className="metric-card">
+                <p>Wilting Point</p>
+                <h3>{thresholdData.wiltingPoint}%</h3>
+              </div>
 
-            <div className="metric-card">
-              <p>Current soil moisture</p>
-              <h3>
-                {loading
-                  ? "Loading..."
-                  : moisture !== null
-                  ? `${moisture.toFixed(2)}%`
-                  : "--"}
-              </h3>
-            </div>
-          </div>
+              <div className="metric-card">
+                <p>Moisture Threshold</p>
+                <h3>{thresholdData.threshold}%</h3>
+              </div>
 
-          <Analysis
-            selectedCrop={selectedCrop}
-            selectedSoil={selectedSoil}
-            thresholdData={thresholdData}
-            moisture={moisture}
-            loading={loading}
-            error={error}
-            onReadingSaved={onReadingSaved}
-          />
-        </>
+              <div className="metric-card">
+                <p>Current Soil Moisture</p>
+                <h3>
+                  {loading
+                    ? "Loading..."
+                    : typeof moisture === "number"
+                    ? `${moisture.toFixed(2)}%`
+                    : "--"}
+                </h3>
+              </div>
+            </div>
+          </>
+        )}
+      </section>
+
+      {hasSelection && thresholdData && (
+        <AnalysisForm
+          selectedCrop={selectedCrop}
+          selectedSoil={selectedSoil}
+          thresholdData={thresholdData}
+          moisture={moisture}
+          loading={loading}
+          error={error}
+          onReadingSaved={onReadingSaved}
+        />
       )}
-    </section>
+    </>
   );
 }
 
