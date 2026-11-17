@@ -514,6 +514,15 @@
       "status": "Below moisture threshold",
       "date": "2026-11-17T16:43:31.495Z",
       "id": 1
+    },
+    {
+      "crop": "onion",
+      "soilType": "loamy sand",
+      "soilMoisture": 7.2,
+      "threshold": 11.2,
+      "status": "Below moisture threshold",
+      "date": "2026-11-17T16:49:51.613Z",
+      "id": 2
     }
   ]
 }
