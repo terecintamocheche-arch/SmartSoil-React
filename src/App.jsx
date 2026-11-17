@@ -64,6 +64,14 @@ function App() {
           onSoilChange={setSelectedSoil}
         />
 
+         <Dashboard
+          selectedCrop={selectedCrop}
+          selectedSoil={selectedSoil}
+          thresholdData={thresholdData}
+          moisture={moisture}
+          />
+
+
         <p>Total threshold records: {thresholds.length}</p>
       </main>
     </div>
