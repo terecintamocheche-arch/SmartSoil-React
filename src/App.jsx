@@ -9,15 +9,15 @@ import "./App.css";
 
 function App() {
   const [thresholds, setThresholds] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [moisture, setMoisture] = useState(null);
 
   const [selectedCrop, setSelectedCrop] = useState("");
   const [selectedSoil, setSelectedSoil] = useState("");
-  const [moisture, setMoisture] = useState(null);
-  const [moistureLoading, setMoistureLoading] = useState(true);
-  const [moistureError, setMoistureError] = useState("");
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  
   useEffect(() => {
     fetch("http://localhost:3001/thresholds")
       .then((response) => {
@@ -36,18 +36,41 @@ function App() {
       });
   }, []);
 
-  const crops = [...new Set(thresholds.map((record) => record.crop))];
+  
+  useEffect(() => {
+    fetch("http://localhost:3001/moistureReadings")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch moisture readings");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.length > 0) {
+          setMoisture(data[data.length - 1].moisture);
+        }
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  }, []);
 
+  
+  const crops = [
+    ...new Set(thresholds.map((record) => record.crop)),
+  ];
+
+  
   const soilTypes = [
     ...new Set(thresholds.map((record) => record.soilType)),
   ];
 
+  
   const thresholdData = thresholds.find(
-  (record) =>
-    record.crop === selectedCrop &&
-    record.soilType === selectedSoil
-);
-
+    (record) =>
+      record.crop === selectedCrop &&
+      record.soilType === selectedSoil
+  );
 
   if (loading) {
     return <h2>Loading soil data...</h2>;
@@ -73,13 +96,12 @@ function App() {
           onSoilChange={setSelectedSoil}
         />
 
-         <Dashboard
+        <Dashboard
           selectedCrop={selectedCrop}
           selectedSoil={selectedSoil}
           thresholdData={thresholdData}
           moisture={moisture}
-          />
-
+        />
 
         <p>Total threshold records: {thresholds.length}</p>
       </main>
