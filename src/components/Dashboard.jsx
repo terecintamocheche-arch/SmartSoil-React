@@ -2,7 +2,12 @@
 import { useEffect, useState } from "react";
 import AnalysisForm from "./AnalysisForm";
 
-function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
+function Dashboard({
+  selectedCrop,
+  selectedSoil,
+  thresholdData,
+  onReadingSaved
+}) {
   const [moisture, setMoisture] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -142,6 +147,7 @@ function Dashboard({ selectedCrop, selectedSoil, thresholdData }) {
           moisture={moisture}
           loading={loading}
           error={error}
+          onReadingSaved={onReadingSaved}
         />
       )}
     </>
