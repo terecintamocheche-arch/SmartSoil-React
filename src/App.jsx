@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import FieldConfiguration from "./components/FieldConfiguration";
 import Dashboard from "./components/Dashboard";
 import ReadingHistory from "./components/ReadingHistory";
 import Footer from "./components/Footer";
@@ -61,10 +60,7 @@ function App() {
 
       <main>
         <Routes>
-          <Route
-            path="/"
-            element={<Hero />}
-          />
+          <Route path="/" element={<Hero />} />
 
           <Route
             path="/dashboard"
@@ -74,25 +70,18 @@ function App() {
               ) : error ? (
                 <p>Error: {error}</p>
               ) : (
-                <>
-                  <FieldConfiguration
-                    crops={crops}
-                    soilTypes={soilTypes}
-                    selectedCrop={selectedCrop}
-                    selectedSoil={selectedSoil}
-                    onCropChange={setSelectedCrop}
-                    onSoilChange={setSelectedSoil}
-                  />
-
-                  <Dashboard
-                    selectedCrop={selectedCrop}
-                    selectedSoil={selectedSoil}
-                    thresholdData={thresholdData}
-                    onReadingSaved={() =>
-                      setRefreshHistory((prev) => prev + 1)
-                    }
-                  />
-                </>
+                <Dashboard
+                  crops={crops}
+                  soilTypes={soilTypes}
+                  selectedCrop={selectedCrop}
+                  selectedSoil={selectedSoil}
+                  onCropChange={setSelectedCrop}
+                  onSoilChange={setSelectedSoil}
+                  thresholdData={thresholdData}
+                  onReadingSaved={() =>
+                    setRefreshHistory((prev) => prev + 1)
+                  }
+                />
               )
             }
           />
@@ -104,10 +93,7 @@ function App() {
             }
           />
 
-          <Route
-            path="/about"
-            element={<About />}
-          />
+          <Route path="/about" element={<About />} />
         </Routes>
       </main>
 
