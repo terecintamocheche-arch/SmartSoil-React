@@ -20,7 +20,6 @@ function App() {
   const [selectedCrop, setSelectedCrop] = useState("");
   const [selectedSoil, setSelectedSoil] = useState("");
 
-  // Refresh signal for Reading History
   const [refreshHistory, setRefreshHistory] = useState(0);
 
   useEffect(() => {
@@ -29,6 +28,7 @@ function App() {
         if (!response.ok) {
           throw new Error("Failed to fetch soil data");
         }
+
         return response.json();
       })
       .then((data) => {
@@ -63,6 +63,11 @@ function App() {
         <Routes>
           <Route
             path="/"
+            element={<Hero />}
+          />
+
+          <Route
+            path="/dashboard"
             element={
               loading ? (
                 <h2>Loading soil data...</h2>
@@ -70,8 +75,6 @@ function App() {
                 <p>Error: {error}</p>
               ) : (
                 <>
-                  <Hero />
-
                   <FieldConfiguration
                     crops={crops}
                     soilTypes={soilTypes}
@@ -89,16 +92,22 @@ function App() {
                       setRefreshHistory((prev) => prev + 1)
                     }
                   />
-
-                  <ReadingHistory
-                    refreshKey={refreshHistory}
-                  />
                 </>
               )
             }
           />
 
-          <Route path="/about" element={<About />} />
+          <Route
+            path="/history"
+            element={
+              <ReadingHistory refreshKey={refreshHistory} />
+            }
+          />
+
+          <Route
+            path="/about"
+            element={<About />}
+          />
         </Routes>
       </main>
 

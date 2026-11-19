@@ -550,6 +550,33 @@
       "status": "Below moisture threshold",
       "date": "2026-11-17T18:40:53.239Z",
       "id": 5
+    },
+    {
+      "crop": "maize",
+      "soilType": "loamy sand",
+      "soilMoisture": 7.2,
+      "threshold": 10,
+      "status": "Below moisture threshold",
+      "date": "2026-11-18T16:58:24.504Z",
+      "id": 6
+    },
+    {
+      "crop": "beans",
+      "soilType": "loam",
+      "soilMoisture": 7.3,
+      "threshold": 20.2,
+      "status": "Below moisture threshold",
+      "date": "2026-11-19T11:22:15.913Z",
+      "id": 7
+    },
+    {
+      "crop": "wheat",
+      "soilType": "silt loam",
+      "soilMoisture": 7.3,
+      "threshold": 23.2,
+      "status": "Below moisture threshold",
+      "date": "2026-11-19T11:23:15.626Z",
+      "id": 8
     }
   ]
 }
