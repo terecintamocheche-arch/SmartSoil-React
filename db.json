@@ -577,6 +577,15 @@
       "status": "Below moisture threshold",
       "date": "2026-11-19T11:23:15.626Z",
       "id": 8
+    },
+    {
+      "crop": "maize",
+      "soilType": "clay loam",
+      "soilMoisture": 7.3,
+      "threshold": 23,
+      "status": "Below moisture threshold",
+      "date": "2026-11-19T14:27:00.333Z",
+      "id": 9
     }
   ]
 }
