@@ -1,3 +1,6 @@
+
+import { Link } from "react-router-dom";
+
 function Hero() {
   return (
     <section className="hero" id="home">
@@ -13,11 +16,10 @@ function Hero() {
           and crop-specific recommendations.
         </p>
 
-        <a href="#configuration" className="hero-button">
+        <Link to="/dashboard" className="hero-button">
           Explore Dashboard
-        </a>
+        </Link>
       </div>
-
     </section>
   );
 }
