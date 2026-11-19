@@ -1,9 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
 
-/* =========================
-   GLOBAL STYLES
-========================= */
+/* GLOBAL STYLES */
 
 :root {
   --sage: #a8bea3;
@@ -36,9 +34,7 @@ a {
   font-family: inherit;
 }
 
-/* =========================
-   NAVBAR
-========================= */
+/* NAVBAR */
 
 .navbar {
   display: flex;
@@ -75,29 +71,20 @@ a {
   gap: 30px;
 }
 
-/* Normal navbar links */
-
-.nav-links a,
-.nav-links button {
-  background: transparent;
-  border: none;
-  padding: 0;
+.nav-links a {
   text-decoration: none;
   color: var(--text);
   font-size: 0.95rem;
   font-weight: 600;
-  cursor: pointer;
   transition: color 0.3s ease;
 }
 
-.nav-links a:hover,
-.nav-links button:hover {
+.nav-links a:hover {
   color: var(--sage-dark);
 }
 
-/* Get Started button */
-
 .nav-button {
+  display: inline-block;
   background: var(--green);
   color: white;
   padding: 12px 23px;
@@ -113,9 +100,7 @@ a {
   background: var(--dark);
 }
 
-/* =========================
-   HERO SECTION
-========================= */
+/* HERO SECTION */
 
 .hero {
   min-height: 480px;
@@ -170,16 +155,7 @@ a {
   background: var(--dark);
 }
 
-.hero-image img {
-  width: 100%;
-  max-width: 420px;
-  border-radius: 15px;
-  object-fit: cover;
-}
-
-/* =========================
-   SECTION HEADINGS
-========================= */
+/* SECTION HEADINGS */
 
 .section-heading {
   text-align: center;
@@ -198,9 +174,7 @@ a {
   line-height: 1.8;
 }
 
-/* =========================
-   FIELD CONFIGURATION
-========================= */
+/* FIELD CONFIGURATION */
 
 .configuration {
   padding: 85px 7%;
@@ -247,40 +221,52 @@ a {
   border-color: var(--sage-dark);
 }
 
-/* =========================
-   DASHBOARD
-========================= */
+/* DASHBOARD */
 
 .dashboard {
   padding: 85px 7%;
   background: var(--white);
 }
 
-.dashboard-message {
-  text-align: center;
-  padding: 25px;
-  color: var(--muted);
-}
+/* Main two-column layout */
 
-.dashboard-summary {
-  display: flex;
-  justify-content: center;
-  gap: 35px;
-  margin-bottom: 30px;
-}
-
-.dashboard-summary p {
-  color: var(--text);
-}
-
-.dashboard-summary strong {
-  color: var(--green);
-}
-
-.dashboard-grid {
+.dashboard-layout {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: 0.85fr 1.5fr;
+  gap: 30px;
+  align-items: start;
+}
+
+/* Field settings inside dashboard */
+
+.dashboard-layout .configuration {
+  padding: 0;
+}
+
+.dashboard-layout .configuration .section-heading {
+  text-align: left;
+  margin-bottom: 25px;
+}
+
+.dashboard-layout .configuration-card {
+  max-width: none;
+  margin: 0;
+  grid-template-columns: 1fr;
+  padding: 28px;
+}
+
+/* Right side */
+
+.dashboard-right {
+  width: 100%;
+}
+
+/* Metric cards */
+
+.dashboard-right .dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
 }
 
 .metric-card {
@@ -308,37 +294,26 @@ a {
   color: var(--green);
 }
 
-/* =========================
-   FIELD ANALYSIS
-========================= */
+/* Dashboard messages */
 
-.analysis-section {
-  padding: 85px 7%;
+.dashboard-message {
+  text-align: center;
+  padding: 25px;
+  color: var(--muted);
+}
+
+/* SAVE READING */
+
+.save-reading {
+  margin-top: 20px;
+  padding: 22px;
   background: var(--cream);
-}
-
-.analysis-card {
-  max-width: 750px;
-  margin: auto;
-  padding: 35px;
-  background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(52, 75, 56, 0.05);
+  border-radius: 12px;
 }
 
-.analysis-card p {
-  margin-bottom: 15px;
-  line-height: 1.7;
-}
-
-.analysis-card h3 {
-  color: var(--green);
-  margin: 25px 0 15px;
-}
-
-.save-button,
-.analysis-card button {
+.save-button {
+  width: 100%;
   background: var(--green);
   color: white;
   padding: 13px 25px;
@@ -351,8 +326,7 @@ a {
   transition: 0.3s;
 }
 
-.save-button:hover,
-.analysis-card button:hover {
+.save-button:hover {
   background: var(--dark);
 }
 
@@ -361,14 +335,18 @@ a {
   cursor: not-allowed;
 }
 
+.save-reading p {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: var(--green);
+}
+
 .error-message {
   color: #c0392b;
   margin: 15px 0;
 }
 
-/* =========================
-   READING HISTORY
-========================= */
+/* READING HISTORY */
 
 .history-section {
   padding: 85px 7%;
@@ -398,9 +376,7 @@ a {
   color: var(--muted);
 }
 
-/* =========================
-   ABOUT PAGE
-========================= */
+/* ABOUT PAGE */
 
 .about-section {
   min-height: 70vh;
@@ -452,9 +428,7 @@ a {
   text-align: justify;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 .footer {
   background: var(--dark);
@@ -487,13 +461,16 @@ a {
   font-size: 0.85rem;
 }
 
-/* =========================
-   RESPONSIVE DESIGN
-========================= */
+/* RESPONSIVE DESIGN */
 
 @media (max-width: 900px) {
-  .dashboard-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .dashboard-layout .configuration-card {
+    grid-template-columns: 1fr 1fr;
   }
 
   .hero {
@@ -534,34 +511,22 @@ a {
 
   .configuration,
   .dashboard,
-  .analysis-section,
   .history-section,
   .about-section {
     padding: 60px 5%;
   }
 
-  .configuration-card {
-    grid-template-columns: 1fr;
-    padding: 25px;
-  }
-
-  .dashboard-grid {
+  .dashboard-layout .configuration-card {
     grid-template-columns: 1fr;
   }
 
-  .dashboard-summary {
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
+  .dashboard-right .dashboard-grid {
+    grid-template-columns: 1fr;
   }
 
   .section-heading h2,
   .about-section .section-heading h2 {
     font-size: 1.8rem;
-  }
-
-  .analysis-card {
-    padding: 25px;
   }
 
   .about-content {
