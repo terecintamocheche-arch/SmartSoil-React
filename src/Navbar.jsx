@@ -11,7 +11,12 @@ function NavBar() {
 
       <div className="nav-links">
         <Link to="/">Home</Link>
-        <a href="/dashboard">Dashboard</a>
+        <button
+  type="button"
+  onClick={() => window.location.assign("/dashboard")}
+>
+  Dashboard
+</button>
         <Link to="/history">History</Link>
         <Link to="/about">About</Link>
       </div>
