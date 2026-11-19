@@ -543,3 +543,53 @@ a {
     text-align: center;
   }
 }
+
+
+/* =========================
+   READING HISTORY TABLE
+========================= */
+
+.history-section {
+  padding: 85px 7%;
+  min-height: 65vh;
+}
+
+.history-table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 35px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 750px;
+}
+
+.history-table th {
+  background: var(--sage-light);
+  color: var(--green);
+  text-align: left;
+  padding: 18px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.history-table td {
+  padding: 18px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-size: 14px;
+}
+
+.history-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.history-table tbody tr:hover {
+  background: #f8faf7;
+}
