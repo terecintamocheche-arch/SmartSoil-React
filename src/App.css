@@ -1,7 +1,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
 
-/* GLOBAL STYLES */
+/* =========================
+   GLOBAL STYLES
+========================= */
 
 :root {
   --sage: #a8bea3;
@@ -25,8 +27,18 @@
 
 body {
   font-family: 'DM Sans', sans-serif;
-  background: var(--cream);
   color: var(--text);
+  background-image:
+    linear-gradient(
+      rgba(245, 249, 243, 0.58),
+      rgba(245, 249, 243, 0.58)
+    ),
+    url("/images/galana.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
 button,
@@ -34,18 +46,21 @@ a {
   font-family: inherit;
 }
 
-/* NAVBAR */
+/* =========================
+   NAVBAR
+========================= */
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 7%;
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.88);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 1000;
+  backdrop-filter: blur(10px);
 }
 
 .logo {
@@ -100,7 +115,9 @@ a {
   background: var(--dark);
 }
 
-/* HERO SECTION */
+/* =========================
+   HERO SECTION
+========================= */
 
 .hero {
   min-height: 480px;
@@ -108,8 +125,9 @@ a {
   align-items: center;
   justify-content: space-between;
   padding: 75px 7%;
-  background: var(--sage-light);
+  background: rgba(229, 238, 225, 0.65);
   gap: 40px;
+  backdrop-filter: blur(3px);
 }
 
 .hero-content {
@@ -155,7 +173,9 @@ a {
   background: var(--dark);
 }
 
-/* SECTION HEADINGS */
+/* =========================
+   SECTION HEADINGS
+========================= */
 
 .section-heading {
   text-align: center;
@@ -174,7 +194,9 @@ a {
   line-height: 1.8;
 }
 
-/* FIELD CONFIGURATION */
+/* =========================
+   FIELD CONFIGURATION
+========================= */
 
 .configuration {
   padding: 85px 7%;
@@ -187,7 +209,7 @@ a {
   grid-template-columns: 1fr 1fr;
   gap: 25px;
   padding: 35px;
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.90);
   border: 1px solid var(--border);
   border-radius: 15px;
   box-shadow: 0 8px 25px rgba(52, 75, 56, 0.05);
@@ -221,14 +243,17 @@ a {
   border-color: var(--sage-dark);
 }
 
-/* DASHBOARD */
+/* =========================
+   DASHBOARD
+========================= */
 
 .dashboard {
   padding: 85px 7%;
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(5px);
 }
 
-/* Main two-column layout */
+/* Two-column dashboard layout */
 
 .dashboard-layout {
   display: grid;
@@ -236,8 +261,6 @@ a {
   gap: 30px;
   align-items: start;
 }
-
-/* Field settings inside dashboard */
 
 .dashboard-layout .configuration {
   padding: 0;
@@ -270,7 +293,7 @@ a {
 }
 
 .metric-card {
-  background: var(--cream);
+  background: rgba(247, 248, 243, 0.95);
   padding: 28px 20px;
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -302,12 +325,14 @@ a {
   color: var(--muted);
 }
 
-/* SAVE READING */
+/* =========================
+   SAVE READING
+========================= */
 
 .save-reading {
   margin-top: 20px;
   padding: 22px;
-  background: var(--cream);
+  background: rgba(247, 248, 243, 0.95);
   border: 1px solid var(--border);
   border-radius: 12px;
 }
@@ -346,42 +371,66 @@ a {
   margin: 15px 0;
 }
 
-/* READING HISTORY */
+/* =========================
+   READING HISTORY
+========================= */
 
 .history-section {
   padding: 85px 7%;
+  min-height: 65vh;
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(5px);
 }
 
-.history-card {
-  max-width: 850px;
-  margin: 18px auto;
-  padding: 25px;
-  background: var(--white);
+.history-table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 35px;
+  background: rgba(255, 255, 255, 0.94);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: 0 5px 18px rgba(52, 75, 56, 0.04);
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
 }
 
-.history-card h3 {
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 750px;
+}
+
+.history-table th {
+  background: var(--sage-light);
   color: var(--green);
-  margin-bottom: 12px;
+  text-align: left;
+  padding: 18px;
+  font-size: 14px;
+  font-weight: 700;
 }
 
-.history-card p {
-  margin-bottom: 8px;
-  line-height: 1.6;
+.history-table td {
+  padding: 18px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-size: 14px;
 }
 
-.history-card small {
-  color: var(--muted);
+.history-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
-/* ABOUT PAGE */
+.history-table tbody tr:hover {
+  background: #f8faf7;
+}
+
+/* =========================
+   ABOUT PAGE
+========================= */
 
 .about-section {
   min-height: 70vh;
   padding: 85px 7%;
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(5px);
 }
 
 .about-section .section-heading {
@@ -405,7 +454,7 @@ a {
   max-width: 900px;
   margin: auto;
   padding: 40px;
-  background: var(--cream);
+  background: rgba(247, 248, 243, 0.94);
   border: 1px solid var(--border);
   border-radius: 16px;
 }
@@ -428,10 +477,12 @@ a {
   text-align: justify;
 }
 
-/* FOOTER */
+/* =========================
+   FOOTER
+========================= */
 
 .footer {
-  background: var(--dark);
+  background: rgba(52, 75, 56, 0.94);
   color: white;
   padding: 45px 7% 20px;
 }
@@ -461,7 +512,9 @@ a {
   font-size: 0.85rem;
 }
 
-/* RESPONSIVE DESIGN */
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
 
 @media (max-width: 900px) {
   .dashboard-layout {
@@ -542,54 +595,4 @@ a {
     flex-direction: column;
     text-align: center;
   }
-}
-
-
-/* =========================
-   READING HISTORY TABLE
-========================= */
-
-.history-section {
-  padding: 85px 7%;
-  min-height: 65vh;
-}
-
-.history-table-container {
-  width: 100%;
-  overflow-x: auto;
-  margin-top: 35px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
-}
-
-.history-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 750px;
-}
-
-.history-table th {
-  background: var(--sage-light);
-  color: var(--green);
-  text-align: left;
-  padding: 18px;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.history-table td {
-  padding: 18px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text);
-  font-size: 14px;
-}
-
-.history-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.history-table tbody tr:hover {
-  background: #f8faf7;
 }
