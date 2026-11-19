@@ -70,9 +70,10 @@ function Dashboard({
   return (
     <>
       <section className="dashboard" id="dashboard">
+
         <div className="section-heading">
           <p className="section-tag">FIELD MONITORING</p>
-          <h2>Soil Moisture Dashboard</h2>
+          <h2>Dashboard Page</h2>
           <p>
             Monitor your field measurements and crop-specific
             moisture thresholds.
@@ -130,7 +131,11 @@ function Dashboard({
             {error && (
               <div className="dashboard-message">
                 <p className="error-message">{error}</p>
-                <button onClick={fetchMoisture} disabled={loading}>
+
+                <button
+                  onClick={fetchMoisture}
+                  disabled={loading}
+                >
                   {loading ? "Retrying..." : "Retry Reading"}
                 </button>
               </div>
