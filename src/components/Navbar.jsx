@@ -1,38 +1,23 @@
-
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function NavBar() {
-  const location = useLocation();
-
-  function goToSection(section) {
-    if (location.pathname !== "/") {
-      window.location.href = `/#${section}`;
-    } else {
-      document.getElementById(section)?.scrollIntoView({
-        behavior: "smooth",
-      });
-    }
-  }
-
   return (
     <nav className="navbar">
       <Link to="/" className="logo">
-        <span></span>SmartSoil
+        <span></span>
+        SmartSoil
       </Link>
 
       <div className="nav-links">
-        <button onClick={() => goToSection("home")}>Home</button>
-        <button onClick={() => goToSection("dashboard")}>Dashboard</button>
-        <button onClick={() => goToSection("history")}>History</button>
+        <Link to="/">Home</Link>
+        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/history">History</Link>
         <Link to="/about">About</Link>
       </div>
 
-      <button
-        className="nav-button"
-        onClick={() => goToSection("configuration")}
-      >
+      <Link to="/dashboard" className="nav-button">
         Get Started
-      </button>
+      </Link>
     </nav>
   );
 }
