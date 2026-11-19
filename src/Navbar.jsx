@@ -1,24 +1,26 @@
-function Navbar() {
-    return(
-        <nav className="navbar">
-            <a href="#home" className="logo">
-                <span></span>SmartSoil
-            </a>
 
-            <div className="nav-links">
-                <a href="#home">Home</a>
-                <a href="#dashboard">Dashboard</a>
-                <a href="#history">History</a>
-                <a href="#about">About</a>
-            </div>
+import { Link } from "react-router-dom";
 
-            <a href="#configuration" className="nav-button">
-                Get Started
-            </a>
-            </nav>
-    );
+function NavBar() {
+  return (
+    <nav className="navbar">
+      <Link to="/" className="logo">
+        <span></span>
+        SmartSoil
+      </Link>
 
+      <div className="nav-links">
+        <Link to="/">Home</Link>
+        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/history">History</Link>
+        <Link to="/about">About</Link>
+      </div>
+
+      <Link to="/dashboard" className="nav-button">
+        Get Started
+      </Link>
+    </nav>
+  );
 }
 
 export default NavBar;
-
